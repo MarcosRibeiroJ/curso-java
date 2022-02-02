@@ -7,25 +7,24 @@ public class Data {
 	int ano;
 	
 	Data() {
-		dia = 01;
-		mes = 01;
-		ano = 1970;
+		this(1, 1, 1970); //caso nao insira parametros, o construtor padrão irá chamar o segundo construtor inserindo a data padrão
 	}
 	
-	Data(int diaInicial, int mesInicial, int anoInicial) {
-		dia = diaInicial;
-		mes = mesInicial;
-		ano = anoInicial;
+	Data(int dia, int mes, int ano) {
+		this.dia = dia;
+		this.mes = mes;
+		this.ano = ano;
 	}
 	
 	//01/01/1970 padrao
 	
 	String obterDataFormatada() {
 		//return dia + "/" + mes + "/" + ano; essa era a minha versão, vou usar a versão da aula pq contém um método que eu não conhecia
-		return String.format("%d/%d/%d", dia, mes, ano);
+		final String formato = "%d/%d/%d"; 
+		return String.format(formato, dia, mes, ano);
 	}
 	
 	void imprimirDataFormatada() {
-		System.out.println(obterDataFormatada());
+		System.out.println(this.obterDataFormatada());
 	}
 }
