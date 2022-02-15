@@ -10,24 +10,27 @@ public class CarroTeste {
 		Ferrari f1 = new Ferrari();
 		Civic c1 = new Civic();
 		
-		System.out.println("A velocidade da Ferrari é: " + f1.verVelocidadeAtual());
+		c1.acelerar();
 		System.out.println("A velocidade do Civic é: " + c1.verVelocidadeAtual());
-		System.out.println();
-		
-		f1.acelerar();
 		
 		c1.acelerar();
-
-		System.out.println("A velocidade da Ferrari é: " + f1.verVelocidadeAtual());
 		System.out.println("A velocidade do Civic é: " + c1.verVelocidadeAtual());
-		System.out.println();
 		
-		f1.frear();
-		c1.frear();
-		c1.frear();
-
-		System.out.println("A velocidade da Ferrari é: " + f1.verVelocidadeAtual());
+		c1.acelerar();
 		System.out.println("A velocidade do Civic é: " + c1.verVelocidadeAtual());
+				
+		f1.ligarTurbo();
+//		f1.ligarAr();
+		
+		f1.acelerar();
+		System.out.println("A velocidade da Ferrari é: " + f1.verVelocidadeAtual());
+		
+		f1.acelerar();
+		System.out.println("A velocidade da Ferrari é: " + f1.verVelocidadeAtual());
+
+		f1.acelerar();
+		System.out.println("A velocidade da Ferrari é: " + f1.verVelocidadeAtual());
+		
 	}
 
 }
