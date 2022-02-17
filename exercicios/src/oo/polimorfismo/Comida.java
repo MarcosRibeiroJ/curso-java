@@ -1,6 +1,12 @@
 package oo.polimorfismo;
 
-public class Comida {
+/**
+ * Essa classe foi definida como abstrata (abstract)
+ * Isso quer dizer que o usuário não pode instanciar diretamente essa classe
+ * Tendo que instanciar alguma outra que herde dessa
+ */
+
+public abstract class Comida {
 	
 	private double peso;
 	
