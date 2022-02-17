@@ -26,8 +26,18 @@ public class Foreach {
 		 * como um parâmetro para o método println através de uma referência ao método
 		 */
 		
-		System.out.println("\nMethod Reference:");
+		System.out.println("\nMethod Reference 01:");
 		aprovados.forEach(System.out::println);
+		
+		System.out.println("\nForma Lambda 02:");
+		aprovados.forEach(nome -> meuImprimir(nome)); // expressão lambda que chama o método definido na classe 
+		
+		System.out.println("\nMethod Reference 02:");
+		aprovados.forEach(Foreach::meuImprimir); // referência ao método meuImprimir definido na classe Foreach
+	}
+	
+	static void meuImprimir(String nome) {
+		System.out.println("Oi meu nome é " + nome);
 	}
 
 }
