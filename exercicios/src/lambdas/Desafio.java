@@ -1,13 +1,14 @@
 package lambdas;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
+import java.util.Locale;
 import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
 public class Desafio {
 
 	public static void main(String[] args) {
+		
+		Locale.setDefault(new Locale("en", "US"));
 		
 		Produto p = new Produto("iPad", 3235.89, 0.13);
 		
@@ -21,20 +22,13 @@ public class Desafio {
 		
 		Function<Produto, Double> precoReal = produto -> produto.preco * (1 - produto.desconto);
 		
-		UnaryOperator<Double> aplicarImposto = numero -> numero >= 2500 ? numero * (1 - 0.085) : numero;
+		UnaryOperator<Double> aplicarImposto = preco -> preco >= 2500 ? preco * 1.085 : preco;
 
-		UnaryOperator<Double> aplicarFrete = numero -> numero >= 3000 ? numero - 100 : numero - 50;
+		UnaryOperator<Double> aplicarFrete = preco -> preco >= 3000 ? preco + 100 : preco + 50;
 		
-		UnaryOperator<Double> arredondar = numero -> {
-			BigDecimal bd = new BigDecimal(numero).setScale(2, RoundingMode.HALF_EVEN);
-			return bd.doubleValue();
-		};
+		UnaryOperator<Double> arredondar = preco -> Double.parseDouble(String.format("%.2f", preco));
 		
-		Function<Double, String> formatar = numero -> {
-			String numFormatado = numero.toString();
-			numFormatado = numFormatado.replace(".", ",");
-			return "R$ " + numFormatado;
-		};
+		Function<Double, String> formatar = preco -> ("R$ " + preco).replace(".", ",");
 		
 		String resultadoFinal = precoReal
 				.andThen(aplicarImposto)
