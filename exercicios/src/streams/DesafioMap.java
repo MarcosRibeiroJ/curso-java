@@ -20,14 +20,12 @@ public class DesafioMap {
 		 * 3. Converter de volta para inteiro: "011" => 3
 		 */
 		
-		Function<Integer, String> converterIntParaString = n -> Integer.toBinaryString(n);
-		
 		UnaryOperator<String> inverterString = s -> new StringBuilder(s).reverse().toString();
 		
 		Function<String, Integer> converterStringParaInt = s -> Integer.parseInt(s, 2);
 		
 		nums.stream()
-			.map(converterIntParaString)
+			.map(Integer::toBinaryString)
 			.map(inverterString)
 			.map(converterStringParaInt)
 			.forEach(println);
