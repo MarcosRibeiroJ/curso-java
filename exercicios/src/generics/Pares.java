@@ -1,12 +1,12 @@
 package generics;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Optional;
 import java.util.Set;
 
 public class Pares<C extends Number, V> {
 	
-	private final Set<Par<C, V>> itens = new HashSet<>();
+	private final Set<Par<C, V>> itens = new LinkedHashSet<>();
 	
 	public void adicionar(C chave, V valor) {
 		if(chave == null) return; //chamando return em método void eu saio do método, nesse caso caso a chave for nula ele já sairá do método
