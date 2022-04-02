@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class AlterarNomePessoa {
@@ -18,53 +16,37 @@ public class AlterarNomePessoa {
 		int codigo = entrada.nextInt();
 		
 		entrada.nextLine();
-		
-		System.out.print("Digite o novo nome: ");
-		String novoNome = entrada.nextLine();
-		
-		entrada.close();
+
+		String sqlSelect = "SELECT codigo, nome FROM pessoas WHERE codigo = ?";
+		String sqlUpdate = "UPDATE pessoas SET nome = ? WHERE codigo = ?";
 		
 		Connection conexao = FabricaConexao.getConexao();
+		PreparedStatement stmt = conexao.prepareStatement(sqlSelect);
+		stmt.setInt(1, codigo);
+		ResultSet r = stmt.executeQuery();
 		
-		String sqlUpdate = "UPDATE pessoas SET nome = ? WHERE codigo = ?";
-		String sqlSelect = "SELECT * FROM pessoas WHERE codigo = ?";
-		
-		PreparedStatement stmtS = conexao.prepareStatement(sqlSelect);
-		stmtS.setInt(1, codigo);
-		
-		ResultSet resultado = stmtS.executeQuery();
-		
-		List<Pessoa> pessoas = new ArrayList<Pessoa>();
-		
-		while(resultado.next()) {
-			codigo = resultado.getInt("codigo");
-			String nome = resultado.getString("nome");
+		if(r.next()) {
+			Pessoa p = new Pessoa(r.getInt(1), r.getString(2));
 			
-			pessoas.add(new Pessoa(codigo, nome));
-		}
-		
-		PreparedStatement stmtU = conexao.prepareStatement(sqlUpdate);
-		stmtU.setString(1, novoNome);
-		stmtU.setInt(2, codigo);
-		
-		stmtU.execute();
-		
-		resultado = stmtS.executeQuery();
-		
-		while(resultado.next()) {
-			codigo = resultado.getInt("codigo");
-			String nome = resultado.getString("nome");
+			System.out.println("O nome atual é: " + p.getNome());
 			
-			pessoas.add(new Pessoa(codigo, nome));
+			System.out.print("Digite o novo nome: ");
+			String novoNome = entrada.nextLine();
+			
+			stmt.close();
+			
+			stmt = conexao.prepareStatement(sqlUpdate);
+			stmt.setString(1, novoNome);
+			stmt.setInt(2, codigo);
+			stmt.execute();
+
+			System.out.println("\nRegistro alterado com sucesso!\n");
+		} else {
+			System.out.println("Código não localizado");
 		}
-		
-		System.out.println("\nRegistro alterado com sucesso!\n");
-		
-		for(Pessoa p : pessoas) {
-			System.out.println("| " + p.getCodigo() + " | " + p.getNome());
-		}
-		
+
 		conexao.close();
+		entrada.close();	
 	}
 
 }
