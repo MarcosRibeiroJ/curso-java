@@ -28,11 +28,13 @@ public class NovoUsuario {
 		 * Passando como parametro um objeto de classe mapeada
 		 */
 		
-		Usuario novoUsuario = new Usuario("Carlos", "carlos@testeJPA.com");
+		Usuario novoUsuario = new Usuario("Leo", "leo@testeJPA.com");
 		
 		em.getTransaction().begin(); //inicia uma transação com BD
 		em.persist(novoUsuario); //insere os dados de novo usuario no banco (INSERT do SQL)
 		em.getTransaction().commit(); //commit das alterações
+		
+		System.out.println("O ID gerado para o novo usuario é: " + novoUsuario.getId());
 		
 		em.close();
 		emf.close();
